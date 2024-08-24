@@ -62,7 +62,6 @@ input {
 .todos {
     width: 400px;
     margin: 20px auto;
-    position: fixed;
 }
 
 .todos ul {
