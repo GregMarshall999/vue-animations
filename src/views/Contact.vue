@@ -22,7 +22,7 @@ const icons = ref([
 </script>
 
 <style>
-.constact ul {
+.contact ul {
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
