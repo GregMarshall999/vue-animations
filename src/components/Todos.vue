@@ -7,11 +7,11 @@
             placeholder="Ajoutez une tache..."
         />
         <div v-if="todos.length">
-            <ul>
+            <transition-group tag="ul" name="list">
                 <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
                     {{ todo.text }}
                 </li>
-            </ul>
+            </transition-group>
         </div>
         <div v-else>Toutes les taches sont terminées!</div>
     </div>
@@ -85,4 +85,17 @@ input {
 .todos li:hover {
     cursor: pointer;
 }
+
+.list-enter-from, .list-leave-to {
+    opacity: 0;
+    transform: scale(0.6);
+}
+.list-enter-to, .list-leave-from {
+    opacity: 1;
+    transform: scale(1);
+}
+.list-enter-active, .list-leave-active {
+    transition: all 0.4s ease;
+}
+
 </style>
