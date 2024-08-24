@@ -1,7 +1,7 @@
 <template>
     <div class="toast-wrapper">
         <div class="toast">
-            Veuillez entrez une valeur
+            Veuillez entrer une valeur
         </div>
     </div>
 </template>
