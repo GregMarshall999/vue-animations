@@ -1,17 +1,25 @@
 <template>
     <div class="contact">
         <h1>Contact</h1>
-        <ul>
-            <li v-for="icon in icons" :key="icon.name">
+        <!--intentionnaly put groupe for error fixing-->
+        <transition-group 
+            tag="ul"
+            appear
+            @before-enter="beforeEnter"
+            @enter="enter"
+        >
+            <!--Add index when delay doesn't work-->
+            <li v-for="(icon, index) in icons" :key="icon.name" :data-index="index">
                 <span class="material-icons">{{ icon.name }}</span>
                 <div>{{ icon.text }}</div>
             </li>
-        </ul>
+        </transition-group>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import gsap from 'gsap';
 
 const icons = ref([
     { name: 'alternate_email', text: 'par email'},
@@ -19,6 +27,21 @@ const icons = ref([
     { name: 'local_post_office', text: 'par poste'},
     { name: 'local_fire_department', text: 'par signaux de fumée'},
 ]);
+
+const beforeEnter = e => {
+    e.style.opacity = 0;
+    e.style.transform = 'translateY(100px)';
+};
+const enter = (e, done) => {
+    gsap.to(e, {
+        opacity: 1, 
+        y: 0, 
+        duration: 0.8, 
+        onComplete: done, 
+        //delay: 0.2  show delay before using index
+        delay: e.dataset.index * 0.2
+    });
+};
 </script>
 
 <style>
