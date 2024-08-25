@@ -7,7 +7,7 @@
             placeholder="Ajoutez une tache..."
         />
         <div v-if="todos.length">
-            <transition-group tag="ul" name="list">
+            <transition-group tag="ul" name="list" appear>
                 <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
                     {{ todo.text }}
                 </li>
@@ -94,8 +94,17 @@ input {
     opacity: 1;
     transform: scale(1);
 }
-.list-enter-active, .list-leave-active {
+.list-enter-active {
     transition: all 0.4s ease;
+}
+
+.list-leave-active {
+    transition: all 0.4s ease;
+    position: absolute; /* removes element from document flow for sliding */
+}
+
+.list-move {
+    transition: all 0.3s ease;
 }
 
 </style>
