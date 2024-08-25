@@ -6,14 +6,18 @@
             @keypress.enter="addTodo"
             placeholder="Ajoutez une tache..."
         />
-        <div v-if="todos.length">
-            <transition-group tag="ul" name="list" appear>
-                <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
-                    {{ todo.text }}
-                </li>
-            </transition-group>
-        </div>
-        <div v-else>Toutes les taches sont terminées!</div>
+        <!--in-out enter animation before exit animation-->
+        <!--out-in exit animation before enter animation-->
+        <transition name="switch" mode="out-in">
+            <div v-if="todos.length">
+                <transition-group tag="ul" name="list" appear>
+                    <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
+                        {{ todo.text }}
+                    </li>
+                </transition-group>
+            </div>
+            <div v-else>Toutes les taches sont terminées!</div>
+        </transition>
     </div>
 </template>
 
@@ -107,4 +111,16 @@ input {
     transition: all 0.3s ease;
 }
 
+.switch-enter-from, .switch-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+}
+/* default properties can be ignored
+.switch-enter-to, .switch-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}*/
+.switch-enter-active, .switch-leave-active {
+    transition: all 0.5s ease;
+}
 </style>
